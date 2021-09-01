@@ -1,8 +1,8 @@
 # wirestripper
 
-![Continuous integration](https://github.com/simeonmiteff/ws-github-test/actions/workflows/actions-rs.yml/badge.svg) ![crates.io](https://img.shields.io/crates/v/wirestripper) ![docs.io](https://docs.rs/wirestripper/badge.svg)
+![Continuous integration](https://github.com/simeonmiteff/wirestripper/actions/workflows/actions-rs.yml/badge.svg) ![crates.io](https://img.shields.io/crates/v/wirestripper) ![docs.io](https://docs.rs/wirestripper/badge.svg)
 
-![wirestripper.webp](wirestripper.webp)
+![wirestripper.webp](https://raw.githubusercontent.com/simeonmiteff/wirestripper/main/wirestripper.webp)
 
 ## Introduction
 The `wirestripper` command line utility (and associated library) in this crate offer functions
@@ -77,13 +77,17 @@ for the SFD to find the start of the frame.
 
 ## Building
 
-To build `wirestripper`, ensure you have a [Rust toolchain installed](https://rustup.rs/), then run:
+To install the latest version of `wirestripper`, ensure you have a [Rust toolchain installed](https://rustup.rs/), then run:
+
+```shell
+cargo install wirestripper
+```
+
+Or, to build from source (binary in `target/release/wirestripper`): 
 
 ```shell
 cargo build --release
 ```
-
-When complete, the build leaves the CLI tool binary in `target/release/wirestripper-cli`. 
 
 ## Usage
 
@@ -108,7 +112,7 @@ $ tshark -r sample_pcap/full.pcap
     9   2.003375              →              netANALYZER 114 Frame captured in transparent mode
    10   2.005742              →              netANALYZER 110 Frame captured in transparent mode
    
-$ ./target/release/wirestripper-cli --input-file sample_pcap/full.pcap strip --output-file /tmp/demo.pcap
+$ wirestripper --input-file sample_pcap/full.pcap strip --output-file /tmp/demo.pcap
 Processed 10 records with 0 errors.
 
 $ tshark -r /tmp/demo.pcap
@@ -123,7 +127,7 @@ $ tshark -r /tmp/demo.pcap
     9 2.003375000  192.168.7.1 → 192.168.7.4  ICMP 102 Echo (ping) request  id=0x0816, seq=9/2304, ttl=64
    10 2.005742000  192.168.7.4 → 192.168.7.1  ICMP 102 Echo (ping) reply    id=0x0816, seq=9/2304, ttl=32 (request in 9)
    
-$ ./target/release/wirestripper-cli --input-file sample_pcap/full.pcap strip --output-file /tmp/demo.pcap --strict
+$ wirestripper --input-file sample_pcap/full.pcap strip --output-file /tmp/demo.pcap --strict
 Record 1 is OK, will strip it normally.
 Skipping record 2 due to netANALYZER record header validation error, re-run with "check" subcommand for details.
 Record 3 is OK, will strip it normally.
@@ -142,7 +146,7 @@ $ tshark -r /tmp/demo.pcap
     3 1.001812000  192.168.7.1 → 192.168.7.4  ICMP 102 Echo (ping) request  id=0x0816, seq=8/2048, ttl=64
     4 2.003375000  192.168.7.1 → 192.168.7.4  ICMP 102 Echo (ping) request  id=0x0816, seq=9/2304, ttl=64
     
-./target/release/wirestripper-cli --input-file sample_pcap/full.pcap check
+$ wirestripper --input-file sample_pcap/full.pcap check
 
 Record 2 is invalid, here are the issues:
 	 - Header preamble-too-short error flag is false, but preamble is 3 bytes long (normal is 7 bytes)
@@ -180,14 +184,14 @@ If we manufacture a record (a copy of record 1 above, included in `sample_pcap/r
 and set the FCS error flag, the `check` command finds the record is valid:
 
 ```text
-$ ./target/release/wirestripper-cli --input-file sample_pcap/record1.pcap check
+$ wirestripper --input-file sample_pcap/record1.pcap check
 
 Processed 1 records with 0 errors.
 ```
 To list the errors correctly indicated, we can pass the `--verbose` flag to `check`: 
 
 ```text
-$ ./target/release/wirestripper-cli --input-file sample_pcap/record1.pcap check --verbose
+$ wirestripper --input-file sample_pcap/record1.pcap check --verbose
 Record 1 is valid.
 Here are known errors in the packet:
 	 - fcs incorrect
@@ -198,7 +202,7 @@ Processed 1 records with 0 errors.
 Finally, if we `strip` this record, `tshark` agrees that the FCS is incorrect:
 
 ```text
-$ ./target/release/wirestripper-cli --input-file sample_pcap/record1.pcap strip --output-file /tmp/demo1.pcap
+$ wirestripper --input-file sample_pcap/record1.pcap strip --output-file /tmp/demo1.pcap
 Processed 1 records with 0 errors.
 
 $ tshark -r /tmp/demo1.pcap 
