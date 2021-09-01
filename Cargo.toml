@@ -8,7 +8,7 @@ readme = "README.md"
 repository = "https://github.com/simeonmiteff/wirestripper"
 documentation = "https://docs.rs/wirestripper"
 description = "wirestripper extracts ethernet frames out of raw ethernet PHY-level PCAP files (Hilscher netANALYZER transparent mode PCAP link-type)"
-keywords = ["ethernet", "phy", "pcap", "netanalyser", "802.3"]
+keywords = ["ethernet", "phy", "pcap", "netanalyser"]
 categories = ["command-line-utilities", "network-programming"]
 
 [workspace]
