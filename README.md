@@ -1,6 +1,6 @@
 # wirestripper
 
-[![Continuous integration](https://github.com/simeonmiteff/ws-github-test/actions/workflows/actions-rs.yml/badge.svg)](https://github.com/simeonmiteff/ws-github-test/actions/workflows/actions-rs.yml) ![crates.io](https://img.shields.io/crates/wirestripper.svg) ![docs.io](https://docs.rs/wirestripper/badge.svg)
+![Continuous integration](https://github.com/simeonmiteff/ws-github-test/actions/workflows/actions-rs.yml/badge.svg) ![crates.io](https://img.shields.io/crates/v/wirestripper) ![docs.io](https://docs.rs/wirestripper/badge.svg)
 
 ![wirestripper.webp](wirestripper.webp)
 
