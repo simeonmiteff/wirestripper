@@ -14,7 +14,7 @@ use std::process::exit;
 
 fn main() -> Result<()> {
     let arg = App::new("wirestripper").
-        version("0.1.0").
+        version("0.1.3").
         author("Simeon Miteff <simeon@miteff.co>").
         about("Read Ethernet packet (a.k.a. Hilscher netANALYZER transparent mode PCAP link-type\n\
                 / raw Ethernet PHY-level) PCAP files, write Ethernet link-type PCAP files.").
