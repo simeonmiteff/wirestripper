@@ -1,0 +1,23 @@
+[package]
+name = "wirestripper"
+version = "0.1.0"
+edition = "2018"
+license = "MPL-2.0"
+authors = ["Simeon Miteff <simeon@miteff.co>" ]
+readme = "README.md"
+repository = "https://github.com/simeonmiteff/wirestripper"
+documentation = "https://docs.rs/wirestripper"
+description = "wirestripper extracts ethernet frames out of raw ethernet PHY-level PCAP files (Hilscher netANALYZER transparent mode PCAP link-type)"
+keywords = ["ethernet", "phy", "pcap", "netanalyser", "802.3"]
+categories = ["command-line-utilities", "network-programming"]
+
+[workspace]
+
+[dependencies]
+clap = "2"
+rpcap = "0.3"
+anyhow = "1.0"
+pretty-hex = "0.2"
+thiserror = "1.0"
+crc32fast = "1.2.1"
+byteorder = "1"
