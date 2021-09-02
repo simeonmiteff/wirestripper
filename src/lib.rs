@@ -101,11 +101,11 @@ pub struct Header {
     pub frame_length: u16,
     /// 2 bit port number (netANALYZER hardware input port)
     pub port_number: u8,
-    /// 4 bit header version. Only v1 ins supported (v2 exists)
+    /// 4 bit header version. Only v1 is supported (v2 exists)
     pub header_version: u8,
     /// Transparent mode flag (wirestripper only supports this mode) = including preamble anf SFD
     pub transparent_mode: bool,
-    /// Port type flag is 0 for Ethernet (only supported typE)
+    /// Port type flag is 0 for Ethernet (only supported type)
     pub port_type: PortType,
     /// 8 error flags bits decoded into a struct of bools, from the netANALYZER header
     pub errors: ErrorFlags,

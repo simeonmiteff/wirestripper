@@ -8,7 +8,7 @@
 The `wirestripper` command line utility (and associated library) in this crate offer functions
 for parsing and validating ethernet packet (a.k.a. Hilscher netANALYZER transparent mode PCAP link-type
 / raw ethernet PHY-level) records. It can extract ethernet frames from these files and write them as normal
-PCAP (thernet link-type) files.
+PCAP (ethernet link-type) files.
 ### 802.3 Packets
 In the IEEE 802.3 specification, a "frame" is what systems and network folks normally think of as 
 an ethernet frame (layer 2 payload), plus a 4-byte trailer CRC32 checksum (FCS - the
