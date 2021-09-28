@@ -1,7 +1,7 @@
 // Copyright 2021 Simeon Miteff
 
 use anyhow::{Context, Result};
-use clap::{App, AppSettings, Arg, SubCommand};
+use clap::{crate_authors, crate_name, crate_version, App, AppSettings, Arg, SubCommand};
 use pretty_hex::pretty_hex;
 use rpcap::read::PcapReader;
 use rpcap::write::{PcapWriter, WriteOptions};
@@ -13,52 +13,52 @@ use std::io::BufWriter;
 use std::process::exit;
 
 fn main() -> Result<()> {
-    let arg = App::new("wirestripper").
-        version("0.1.4").
-        author("Simeon Miteff <simeon@miteff.co>").
-        about("Read Ethernet packet (a.k.a. Hilscher netANALYZER transparent mode PCAP link-type\n\
-                / raw Ethernet PHY-level) PCAP files, write Ethernet link-type PCAP files.").
-        setting(AppSettings::SubcommandRequiredElseHelp).
-        arg(Arg::with_name("input").
-            short("i").
-            long("input-file").
-            value_name("INPUT").
-            help("Specifies the input netANALYZER link-type PCAP file").
-            required(true).
-            validator(|v| if std::path::Path::new(&v).exists() {
+    let arg = App::new(crate_name!())
+        .version(crate_version!())
+        .author(crate_authors!("\n"))
+        .about("Read Ethernet packet (a.k.a. Hilscher netANALYZER transparent mode PCAP link-type\n\
+                / raw Ethernet PHY-level) PCAP files, write Ethernet link-type PCAP files.")
+        .setting(AppSettings::SubcommandRequiredElseHelp)
+        .arg(Arg::with_name("input")
+            .short("i")
+            .long("input-file")
+            .value_name("INPUT")
+            .help("Specifies the input netANALYZER link-type PCAP file")
+            .required(true)
+            .validator(|v| if std::path::Path::new(&v).exists() {
                     Ok(())
                 } else {
                     Err(format!("input file {} not found", v))
-            }).
-            takes_value(true)
+            })
+            .takes_value(true)
         ).subcommand(
-        SubCommand::with_name("strip").
-            about("Write valid frames (only) to an Ethernet link-type pcap file (stripped out of \
-            netANALYZER link-type records)").
-            arg(Arg::with_name("output").
-                short("o").
-                long("output-file").
-                value_name("OUTPUT").
-                help("Sets the output Ethernet link-type pcap file for output frames").
-                required(true).
-                takes_value(true)
-            ).
-            arg(Arg::with_name("strict").
-                short("s").
-                long("strict").
-                help("Skip PCAP records with invalid netANALYZER headers").
-                required(false).
-                takes_value(false)
+        SubCommand::with_name("strip")
+            .about("Write valid frames (only) to an Ethernet link-type pcap file (stripped out of \
+            netANALYZER link-type records)")
+            .arg(Arg::with_name("output")
+                .short("o")
+                .long("output-file")
+                .value_name("OUTPUT")
+                .help("Sets the output Ethernet link-type pcap file for output frames")
+                .required(true)
+                .takes_value(true)
+            )
+            .arg(Arg::with_name("strict")
+                .short("s")
+                .long("strict")
+                .help("Skip PCAP records with invalid netANALYZER headers")
+                .required(false)
+                .takes_value(false)
             )
         ).subcommand(
-        SubCommand::with_name("check").
-            about("Check netANALYZER transparent mode PCAP link-type records").
-            arg(Arg::with_name("verbose").
-                short("v").
-                long("verbose").
-                help("Don't just check for consistency, but report errors").
-                required(false).
-                takes_value(false)
+        SubCommand::with_name("check")
+            .about("Check netANALYZER transparent mode PCAP link-type records")
+            .arg(Arg::with_name("verbose")
+                .short("v")
+                .long("verbose")
+                .help("Don't just check for consistency, but report errors")
+                .required(false)
+                .takes_value(false)
             )
     ).get_matches();
 
